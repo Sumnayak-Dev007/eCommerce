@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .checkout-container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .card {
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            border: 2px solid #198754; /* Green border on hover */
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .form-control {
+            border: 2px solid #ced4da;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0px 0px 8px rgba(25, 135, 84, 0.3);
+        }
+        .product-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container checkout-container my-5">
+    <h2 class="text-center mb-4">Checkout</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'placeorder' %}">
+        {% csrf_token %}
+    <div class="row">
+        <!-- User Details Form -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="mb-3">Billing Details</h5>
+                
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{request.user.first_name}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{request.user.last_name}}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{request.user.email}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" value="{{profile.phone}}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{profile.address}}" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" value="{{profile.city}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" name="state" value="{{profile.state}}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="country" name="country" value="{{profile.country}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pincode" class="form-label">Pincode</label>
+                            <input type="text" class="form-control" id="pincode" name="pincode" value="{{profile.pincode}}" required>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="mb-3">Order Summary</h5>
+                
+                <ul class="list-group mb-3">
+                    {% for item in cartitem %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ item.Product.product_image.url }}" alt="{{ item.Product.name }}" class="product-img me-3">
+                            <div>
+                                <p class="mb-0 fw-bold">{{ item.Product.name }}</p>
+                                <small class="text-muted">Rs. {{ item.Product.selling_price }} x {{ item.product_qty }}</small>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <h5 class="text-end">Total: <span class="fw-bold text-danger">Rs. {{ total_price|stringformat:'d' }}</span></h5>
+                <input type="hidden" name="payment_mode" value="COD">
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-success btn-lg">Proceed to Pay | COD</button>
+                    <button type="button" class="razrpay btn btn-primary btn-lg my-2">Pay with UPI</button>
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</form>
+</div>
+   {% block script %}
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+   <script src="https://www.paypal.com/sdk/js?client-id=AcU3nPlRR3JsniGIEOSiivGyukh3r9ijacXSPh1NpRgycwBcRzNTydnBHujGqrJMbm0TNQohjVqJi8aK"></script>
+
+   <script>
+    paypal.Buttons({
+      
+      onClick:function(data,actions){
+        var first_name = $("[name='first_name']").val();
+        var last_name = $("[name='last_name']").val();
+        var email = $("[name='email']").val();
+        var phone = $("[name='phone']").val();
+        var address = $("[name='address']").val();
+        var city = $("[name='city']").val();
+        var state = $("[name='state']").val();
+        var country = $("[name='country']").val();
+        var pincode = $("[name='pincode']").val();
+        var token = $("[name='csrfmiddlewaretoken']").val();
+
+            if (first_name == "" || last_name == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || country == "" || pincode == "")
+                {
+                
+                Swal.fire({
+                    title: "Alert!",
+                    text: "All Fields Are Mandatory!",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                  });
+                  return false;
+                  
+            }
+            else{
+                return true;
+            }
+             },
+                 createOrder: function(data, actions) {
+                    return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                        value: '{{ total_price }}' // The amount you want to charge
+                        }
+                    }]
+                    });
+                },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                //   console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                //   alert(orderData.id)
+                            
+                var first_name = $("[name='first_name']").val();
+                var last_name = $("[name='last_name']").val();
+                var email = $("[name='email']").val();
+                var phone = $("[name='phone']").val();
+                var address = $("[name='address']").val();
+                var city = $("[name='city']").val();
+                var state = $("[name='state']").val();
+                var country = $("[name='country']").val();
+                var pincode = $("[name='pincode']").val();
+                var token = $("[name='csrfmiddlewaretoken']").val();
+                                  data = {
+                                        "first_name":first_name, 
+                                        "last_name":last_name,
+                                        "email":email,
+                                        "phone":phone, 
+                                        "address":address, 
+                                        "city":city,
+                                        "state":state, 
+                                        "country":country, 
+                                        "pincode":pincode,
+                                        "payment_mode":"Paid by Paypal",
+                                        "payment_id":orderData.id,
+                                        csrfmiddlewaretoken:token,
+                                  }
+                                  $.ajax({
+                                      method: "POST",
+                                      url: "/placeorder/",
+                                      data: data,
+                                      success: function (responsec) {
+                                        Swal.fire({
+                                        title: "Congratulations!",
+                                        text: responsec.status,  // Ensure responsec.status is a valid string
+                                        icon: "success",
+                                        confirmButtonText: "OK"
+                                      }).then(() => {
+                                        window.location.href = "/my-orders/";  // Redirect after clicking OK
+                                      });
+                                          
+                                      }
+                                  });
+                      
+                  
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert('Transactidn '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                });
+            }
+        }).render('#paypal-button-container'); // Render the button into the div
+  </script>
+    {%  endblock %}
+</body>
+</html>
+
+{% endblock %}

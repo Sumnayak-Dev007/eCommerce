@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% for msg in messages %}
+<div class="alert alert-primary" role="alert">
+    Info Alert! {{msg}}
+  </div>
+  {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Product Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .strike-through {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .zoom-effect {
+            overflow: hidden;
+        }
+
+        .zoom-effect img {
+            transition: transform 0.5s ease;
+        }
+
+        .zoom-effect:hover img {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5 product_data">
+        <!-- Product Header -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Product Image with Zoom Effect -->
+                <div class="zoom-effect">
+                    <img src="{{ product.product_image.url }}" alt="{{ product.name }}" class="img-fluid product-image">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1>{{ product.name }}</h1>
+                <p class="text-muted">Tag: <strong>{{ product.tag }}</strong></p>
+
+                <!-- Pricing -->
+                <h3 class="text-danger">₹{{ product.selling_price }}</h3>
+                <h5 class="strike-through">₹{{ product.original_price }}</h5>
+                {% csrf_token %}
+                <input type="hidden" value="{{product.id}}" class="prod_id">
+                <!-- Quantity Control -->
+                <div class="d-flex align-items-center my-3">
+                    <button class="btn btn-outline-secondary" id="decrement"><i class="bi bi-chevron-down"></i></button>
+                    <input type="text" id="quantity" value="1" class="form-control text-center mx-2" style="width: 60px;">
+                    <button class="btn btn-outline-secondary" id="increment"><i class="bi bi-chevron-up"></i></button>
+                </div>
+
+                <!-- Buttons -->
+                <button class="btn btn-primary btn-lg me-2 addtoCart">Add to Cart</button>
+                <button class="btn btn-outline-secondary btn-lg addto_w_list">Add to Wishlist</button>
+
+                <!-- Product Description -->
+                <div class="mt-4">
+                    <h4>Product Description</h4>
+                    <p>{{ product.descriptions }}</p>
+                </div>
+
+                <!-- Product Status -->
+                {% if product.quantity %}
+                    <span class="badge bg-success">Available</span>
+                {% else %}
+                    <span class="badge bg-danger">Out of Stock</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Additional Section for Related Info -->
+        <div class="row mt-5">
+            <h4>Other Details</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Quantity Available: {{ product.quantity }}</li>
+                <li class="list-group-item">Category: {{ product.category.name }}</li>
+                <li class="list-group-item">Created On: {{ product.created_at|date:"M d, Y" }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Quantity Increment and Decrement Script -->
+    <script>
+        const quantityInput = document.getElementById('quantity');
+        const incrementBtn = document.getElementById('increment');
+        const decrementBtn = document.getElementById('decrement');
+
+        incrementBtn.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue)) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+
+        decrementBtn.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    </script>
+    <script>
+        {% for msg in messages %}
+        swal("{{msg}}","error");
+        {% endfor %}
+    </script>
+</body>
+</html>
+
+{% endblock %}

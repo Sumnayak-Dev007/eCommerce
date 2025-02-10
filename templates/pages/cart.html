@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container py-5 prod_val custom-padding">
+    <h1 class="mb-4 text-center">Your Shopping Cart</h1>
+    {% if cart %}
+    <div class="row">
+      <!-- Cart Items -->
+      <div class="col-md-8">
+        <ul class="list-group mb-4">
+          {% for item in cart %}
+          <li class="list-group-item">
+            <div class="row align-items-center">
+              <!-- Product Image -->
+              <div class="col-md-2">
+                <img src="{{ item.Product.product_image.url }}" alt="{{ item.Product.name }}" class="img-fluid rounded">
+              </div>
+              <!-- Product Details -->
+              <div class="col-md-5">
+                <h5>{{ item.Product.name }}</h5>
+                <small class="text-muted">{{ item.Product.tag }}</small>
+                <p class="text-danger">Rs. {{ item.Product.selling_price }} <del class="text-muted">Rs. {{ item.Product.original_price }}</del></p>
+              </div>
+              {% csrf_token %}
+              <input type="hidden" value="{{item.Product.id}}" class="prodss_id">
+              <!-- Quantity Controls -->
+              <div class="col-md-3 d-flex align-items-center">
+                <button class="btn btn-outline-secondary btn-sm decrement-btn updateQuantity" data-id="{{ item.id }}">
+                  <i class="bi bi-dash-circle"></i>
+                </button>
+                <input type="number" name="quantity" class="prodss form-control text-center mx-2 quantity-input" 
+                  value="{{ item.product_qty }}" min="1" data-id="{{ item.id }}" style="width: 60px;" readonly />
+                <button class="btn btn-outline-secondary btn-sm increment-btn updateQuantity" data-id="{{ item.id }}">
+                  <i class="bi bi-plus-circle"></i>
+                </button>
+              </div>
+              <!-- Remove Button -->
+              <div class="col-md-2 text-end">
+                <button class="btn btn-danger btn-sm remove-btn" data-id="{{ item.id }}">
+                  <i class="bi bi-trash"></i> Remove
+                </button>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <!-- Summary Section -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Order Summary</h5>
+          </div>
+          <div class="card-body">
+            <a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">Proceed to Checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-center text-muted">Your cart is empty. <a href="/products/">Go shopping</a>.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  $(document).ready(function () {
+    // Increment Quantity
+    $('.increment-btn').click(function () {
+      let inputField = $(this).siblings('.quantity-input');
+      let currentQty = parseInt(inputField.val());
+      if (!isNaN(currentQty)) {
+        inputField.val(currentQty + 1);
+      }
+    });
+
+    // Decrement Quantity
+    $('.decrement-btn').click(function () {
+      let inputField = $(this).siblings('.quantity-input');
+      let currentQty = parseInt(inputField.val());
+      if (!isNaN(currentQty) && currentQty > 1) {
+        inputField.val(currentQty - 1);
+      }
+    });
+  });
+</script>
+{% endblock %}
