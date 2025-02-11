@@ -21,5 +21,6 @@ urlpatterns = [
     path('searchproducts/',views.search),
     path('searchitems/',views.searchproducts,name="searchproduct"),
     path('orders/',views.orders,name="orders"),
-     path('orders/<int:order_id>/',views.order_detail, name='order_detail'),
+    path('orders/<int:order_id>/',views.order_detail, name='order_detail'),
+    path('about',views.aboutus, name='about'),
 ]

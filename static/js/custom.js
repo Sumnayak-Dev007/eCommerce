@@ -1,5 +1,23 @@
 $(document).ready(function () {
 
+    // $('.increment-btn').click(function () {
+    //     let inputField = $(this).siblings('.quantity-input');
+    //     let currentQty = parseInt(inputField.val());
+    //     if (!isNaN(currentQty)) {
+    //       inputField.val(currentQty + 1);
+    //       updateCartQuantity(inputField);
+    //     }
+    //   });
+    
+    //   // Decrement Quantity
+    //   $('.decrement-btn').click(function () {
+    //     let inputField = $(this).siblings('.quantity-input');
+    //     let currentQty = parseInt(inputField.val());
+    //     if (!isNaN(currentQty) && currentQty > 1) {
+    //       inputField.val(currentQty - 1);
+    //       updateCartQuantity(inputField);
+    //     }
+    //   });
     // Add to Cart
     $('.addtoCart').on('click', function (e) { 
         e.preventDefault();
@@ -33,17 +51,19 @@ $(document).ready(function () {
     });
 
     // Update Cart Quantity
-    $('.updateQuantity').on('click', function (e) { 
+    $('.updateQuantity').on('click', function (e) {
         e.preventDefault();
-
-        var $productData = $(this).closest('.prod_val');
-        var product_id = $productData.find('.prodss_id').val();
-        var prod_qty = $productData.find('.prodss').val();
+        var $productData = $(this).closest('.prod_val'); // Get the closest product block
+        var product_id = $productData.find('.prodss_id').val(); // Get the product ID
+        var prod_qty = $productData.find('.prodss').val(); // Get the quantity
         var token = $("input[name=csrfmiddlewaretoken]").val();
-
+    
+        console.log("Product ID: ", product_id);
+        console.log("Product Quantity: ", prod_qty);
+    
         $.ajax({
             type: "POST",
-            url: "/updatecart/",
+            url: "/updatecart/", // Ensure this URL is correct
             data: {
                 'product_id': product_id,
                 'prod_qty': prod_qty,
@@ -58,7 +78,6 @@ $(document).ready(function () {
                 alertify.error('There was an issue with your request. Please try again.');
             }
         });
-        
     });
 
     $('.remove-btn').on('click',(function (e) { 

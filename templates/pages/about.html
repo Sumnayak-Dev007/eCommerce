@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - FoodOnClick</title>
+    <!-- Bootstrap CSS -->
+   
+    <style>
+        /* Custom styling for the About page */
+        .about-section {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+        }
+        .contact-section {
+            background-color: #fff;
+            padding: 50px 0;
+        }
+        .contact-section .social-icon {
+            font-size: 1.5rem;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- About Section -->
+    <div class="about-section">
+        <div class="container">
+            <h1 class="text-center mb-4">About Organic</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>About My Work</h2>
+                    <p>
+                        Organic(FoodOnClick) is an innovative platform dedicated to providing organic and healthy food options directly to your doorstep. I developed this app as part of my journey to make healthy living more accessible to everyone. My role involved designing and developing the entire application, from the user interface to backend integration.
+                    </p>
+                    <p>
+                        The app allows users to browse a variety of organic food products, place orders, and have them delivered directly to their homes. I focused on creating an intuitive user experience that makes it easy for users to discover healthy food options.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h2>My Professional Speciality</h2>
+                    <p>
+                        I specialize in full-stack development with expertise in backend development using Django, as well as front-end technologies like HTML, CSS, JavaScript, and Bootstrap. My focus is on building scalable, user-friendly, and secure applications that cater to real-world problems.
+                    </p>
+                    <p>
+                        With a keen interest in web development, I aim to create solutions that not only meet client needs but also provide seamless user experiences. I enjoy working with modern frameworks and enjoy taking on new challenges that enhance both my technical and problem-solving skills.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Contact Me</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <h3>Email</h3>
+                    <p>Feel free to reach out to me via email for any inquiries or collaborations.</p>
+                    <p><a href="mailto:prof.sumanatwork001@gmail.com" class="btn btn-primary">Send Email</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3>GitHub</h3>
+                    <p>Check out my GitHub profile for more of my projects and contributions.</p>
+                    <p><a href="https://github.com/Sumnayak-Dev007" class="btn btn-dark" target="_blank">Visit GitHub</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3>Social Media</h3>
+                    <p>Follow me on social media for updates on my latest work.</p>
+                    <div>
+                        <a href="https://www.linkedin.com/in/sumanknayak/" class="social-icon" target="_blank"><i
+                                class="bi bi-linkedin"></i></a>
+                        <a href="https://www.instagram.com/_beingsumn__/" class="social-icon" target="_blank"><i
+                                class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>
+{% endblock %}

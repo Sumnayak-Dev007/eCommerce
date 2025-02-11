@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="container py-5 prod_val custom-padding">
+  <div class="container py-5 custom-padding">
     <h1 class="mb-4 text-center">Your Shopping Cart</h1>
     {% if cart %}
     <div class="row">
@@ -8,7 +8,7 @@
       <div class="col-md-8">
         <ul class="list-group mb-4">
           {% for item in cart %}
-          <li class="list-group-item">
+          <li class="list-group-item  prod_val">
             <div class="row align-items-center">
               <!-- Product Image -->
               <div class="col-md-2">
@@ -20,15 +20,16 @@
                 <small class="text-muted">{{ item.Product.tag }}</small>
                 <p class="text-danger">Rs. {{ item.Product.selling_price }} <del class="text-muted">Rs. {{ item.Product.original_price }}</del></p>
               </div>
-              {% csrf_token %}
-              <input type="hidden" value="{{item.Product.id}}" class="prodss_id">
+              
               <!-- Quantity Controls -->
               <div class="col-md-3 d-flex align-items-center">
+                {% csrf_token %}
+              <input type="hidden" value="{{item.Product.id}}" class="prodss_id">
                 <button class="btn btn-outline-secondary btn-sm decrement-btn updateQuantity" data-id="{{ item.id }}">
                   <i class="bi bi-dash-circle"></i>
                 </button>
                 <input type="number" name="quantity" class="prodss form-control text-center mx-2 quantity-input" 
-                  value="{{ item.product_qty }}" min="1" data-id="{{ item.id }}" style="width: 60px;" readonly />
+                  value="{{ item.product_qty }}" min="1" style="width: 60px;" readonly />
                 <button class="btn btn-outline-secondary btn-sm increment-btn updateQuantity" data-id="{{ item.id }}">
                   <i class="bi bi-plus-circle"></i>
                 </button>
@@ -47,14 +48,40 @@
       <!-- Summary Section -->
       <div class="col-md-4">
         <div class="card">
-          <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Order Summary</h5>
-          </div>
-          <div class="card-body">
-            <a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">Proceed to Checkout</a>
-          </div>
+            <!-- Card Header -->
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Order Summary</h5>
+            </div>
+    
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- List of Cart Items -->
+                <ul class="list-group mb-3">
+                    {% for item in cart %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <!-- Product Image -->
+                            <img src="{{ item.Product.product_image.url }}" alt="{{ item.Product.name }}" class="product-img me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                            <!-- Product Details -->
+                            <div>
+                                <p class="mb-0 fw-bold">{{ item.Product.name }}</p>
+                                <small class="text-muted">Rs. {{ item.Product.selling_price }} x {{ item.product_qty }}</small>
+                            </div>
+                        </div>
+                        <!-- Subtotal for Each Item -->
+
+                    </li>
+                    {% endfor %}
+                </ul>
+    
+                <!-- Total Price -->
+                <h5 class="text-end">Total: <span class="fw-bold text-danger">Rs. {{ total_price|stringformat:'d' }}</span></h5>
+    
+                <!-- Checkout Button -->
+                <a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">Proceed to Checkout</a>
+            </div>
         </div>
-      </div>
+    </div>
     </div>
     {% else %}
     <p class="text-center text-muted">Your cart is empty. <a href="/products/">Go shopping</a>.</p>

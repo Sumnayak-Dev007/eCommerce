@@ -96,8 +96,12 @@ def addTocart(request):
 @login_required
 def cartview(request):
     cart = Cart.objects.filter(user=request.user)
+    total_price = 0
+    for item in cart:
+        total_price = total_price + item.product_qty * item.Product.selling_price
     context ={
-        'cart':cart
+        'cart':cart,
+        'total_price':total_price,
     }
     return render(request,'pages/cart.html',context)
 
@@ -105,14 +109,18 @@ def cartview(request):
 def updatecartqty(request):
     if request.method == 'POST':
         prod_id = int(request.POST.get('product_id'))
-        if(Cart.objects.filter(user=request.user, Product_id=prod_id)):
-            prod_qty = int(request.POST.get('prod_qty'))
-            cart = Cart.objects.get(Product_id=prod_id, user=request.user)
+        prod_qty = int(request.POST.get('prod_qty'))
 
-            
-            cart.product_qty = prod_qty
-            cart.save()
-            return JsonResponse({'status':"Updated Successfully"})
+        print(f"Updating product ID: {prod_id} to quantity: {prod_qty}")  # Debugging
+
+        try:
+            cart_item = Cart.objects.get(user=request.user, Product_id=prod_id)
+            cart_item.product_qty = prod_qty
+            cart_item.save()
+            return JsonResponse({'status': "Updated Successfully"})
+        except Cart.DoesNotExist:
+            return JsonResponse({'status': "Product not found in cart"})
+
     return redirect('/')
 
 
@@ -336,3 +344,6 @@ def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'pages/order_detail.html', {'order': order, 'order_items': order_items})
+
+def aboutus(request):
+    return render(request,'pages/about.html')
