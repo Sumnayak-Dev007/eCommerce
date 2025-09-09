@@ -1,0 +1,31 @@
+[33me590bb1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Merge branch 'main' of https://github.com/Sumnayak-Dev007/eCommerce "merging"
+[33me89ebfb[m documenting
+[33m991f958[m[33m ([m[1;31morigin/main[m[33m)[m Delete db.sqlite3
+[33m506a4ea[m Update forms.py
+[33mbc4ef78[m Delete FoodApp/__pycache__/views.cpython-312.pyc
+[33me73b593[m Delete FoodApp/__pycache__/urls.cpython-312.pyc
+[33mef7fb02[m Delete FoodApp/migrations/__pycache__/__init__.cpython-312.pyc
+[33me3158d3[m Delete FoodApp/migrations/__pycache__/0007_profile.cpython-312.pyc
+[33m4dd03af[m Delete FoodApp/migrations/__pycache__/0006_order_orderitem.cpython-312.pyc
+[33m3b4cbd7[m Delete FoodApp/migrations/__pycache__/0005_wishlist.cpython-312.pyc
+[33me2025b3[m Delete FoodApp/migrations/__pycache__/0004_cart.cpython-312.pyc
+[33m0e6607d[m Delete FoodApp/migrations/__pycache__/0002_product.cpython-312.pyc
+[33m1b3227b[m Delete FoodApp/migrations/__pycache__/0003_alter_product_product_image.cpython-312.pyc
+[33m6e0a615[m Delete FoodApp/migrations/__pycache__/0001_initial.cpython-312.pyc
+[33md6c7ea9[m Delete FoodApp/__init__.py
+[33md5af9b2[m Delete FoodApp/migrations/__init__.py
+[33mf1c25ba[m Delete FoodApp/migrations/0007_profile.py
+[33me76a669[m Delete FoodApp/migrations/0006_order_orderitem.py
+[33maa62ff4[m Delete FoodApp/migrations/0005_wishlist.py
+[33md28dcbb[m Delete FoodApp/migrations/0004_cart.py
+[33m0a2641f[m Delete FoodApp/migrations/0003_alter_product_product_image.py
+[33ma1b33bb[m Delete FoodApp/migrations/0002_product.py
+[33m8658682[m Delete FoodApp/migrations/0001_initial.py
+[33mff24a97[m Delete FoodApp/__pycache__/models.cpython-312.pyc
+[33mc645556[m Delete FoodApp/__pycache__/apps.cpython-312.pyc
+[33mf715310[m Delete FoodApp/__pycache__/admin.cpython-312.pyc
+[33m4e604a7[m Delete FoodApp/__pycache__/__init__.cpython-312.pyc
+[33m81839d8[m Delete FoodApp/models.py
+[33m11dc824[m Delete FoodApp/views.py
+[33m615b11c[m update cart qty
+[33m8d81f05[m Initial commit

@@ -40,6 +40,27 @@ start writing your required javascript in the custom.js in the same folder as jq
 This guide provides a step-by-step explanation for integrating Razorpay, a popular payment gateway, into your web application. By following these instructions, you can seamlessly enable payments via Razorpay and handle order processing efficiently.
 
 ---
+## Integrate Alertify js
+visit :https://alertifyjs.com/guide.html
+
+paste the first script at the bottom of base.html<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+paste the first two css links in the head of base.html
+
+fo to components --> Notifier --> Position
+
+paste the script at the bottom : and modify it like this :
+
+<script>
+  alertify.set('notifier','position', 'top-right');
+   {% for msg in messages %} 
+    alertify.success('{{msg}}');
+  {%  endfor %}
+</script>
+
+that's it you will see all messages set in your views : )
+
 
 ## 🛠️ Steps to Integrate Razorpay
 
