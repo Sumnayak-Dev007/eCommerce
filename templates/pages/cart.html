@@ -84,7 +84,7 @@
     </div>
     </div>
     {% else %}
-    <p class="text-center text-muted">Your cart is empty. <a href="/products/">Go shopping</a>.</p>
+    <p class="text-center text-muted">Your cart is empty. <a href="{% url 'categories' %}">Go shopping</a>.</p>
     {% endif %}
   </div>
 {% endblock %}
