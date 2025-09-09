@@ -1,3 +1,40 @@
+Integrate JQuery :
+
+Download the latest jQuery (minified)
+
+Go to 👉 jQuery Releases visit: https://releases.jquery.com/
+.
+
+Click on the latest minified link (something like jquery-3.7.1.min.js).
+
+It will open in your browser as plain text.
+
+Copy all content and paste it into a file in your Django project:
+
+📂 static/js/jquery.js
+
+2. Create a custom JavaScript file
+
+Inside the same folder, create:
+
+📂 static/js/custom.js
+
+This is where you will write your own scripts.
+
+Example inside custom.js:
+
+// custom.js
+$(document).ready(function() {
+    console.log("Custom JS loaded with jQuery!");
+});
+
+3. Include scripts in base.html
+
+At the bottom of your <body> (so page loads first, JS later), add:
+
+
+start writing your required javascript in the custom.js in the same folder as jquery.js
+
 # Integrating Razorpay Payment Gateway 🚀
 
 This guide provides a step-by-step explanation for integrating Razorpay, a popular payment gateway, into your web application. By following these instructions, you can seamlessly enable payments via Razorpay and handle order processing efficiently.
