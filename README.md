@@ -1,4 +1,4 @@
-Integrate JQuery :
+## Integrate JQuery :
 
 Download the latest jQuery (minified)
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 3. Include scripts in base.html
 
-At the bottom of your <body> (so page loads first, JS later), add:
+At the bottom of your body tag (so page loads first, JS later), add:
 
 
 start writing your required javascript in the custom.js in the same folder as jquery.js
@@ -45,10 +45,11 @@ visit :https://alertifyjs.com/guide.html
 
 paste the first script at the bottom of base.html<!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+<br/>
 
 paste the first two css links in the head of base.html
 
-fo to components --> Notifier --> Position
+Go to components --> Notifier --> Position
 
 paste the script at the bottom : and modify it like this :
 
