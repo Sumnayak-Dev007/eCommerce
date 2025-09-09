@@ -35,12 +35,8 @@ At the bottom of your body tag (so page loads first, JS later), add:
 
 start writing your required javascript in the custom.js in the same folder as jquery.js
 
-# Integrating Razorpay Payment Gateway 🚀
+## Integrate Alertify js:
 
-This guide provides a step-by-step explanation for integrating Razorpay, a popular payment gateway, into your web application. By following these instructions, you can seamlessly enable payments via Razorpay and handle order processing efficiently.
-
----
-## Integrate Alertify js
 visit :https://alertifyjs.com/guide.html
 
 paste the first script at the bottom of base.html<!-- JavaScript -->
@@ -62,6 +58,11 @@ paste the script at the bottom : and modify it like this :
 
 that's it you will see all messages set in your views : )
 
+# Integrating Razorpay Payment Gateway 🚀
+
+This guide provides a step-by-step explanation for integrating Razorpay, a popular payment gateway, into your web application. By following these instructions, you can seamlessly enable payments via Razorpay and handle order processing efficiently.
+
+---
 
 ## 🛠️ Steps to Integrate Razorpay
 
