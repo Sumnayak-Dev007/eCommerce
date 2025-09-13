@@ -77,7 +77,7 @@ Add the Razorpay checkout script to your HTML file "checkout.html" under {% bloc
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 3. Write Custom jQuery in checkout.js
-Create a static JavaScript file (checkout.js) and include it in your HTML file below the Razorpay script:
+Create a static JavaScript file (checkout.js) and include it in your HTML file below the Razorpay script in base.html/main.html below the script template tag:
 
 <script src="static/js/checkout.js"></script>
 
@@ -201,9 +201,13 @@ $.ajax({
 3. Configure Razorpay Options
 Set up the Razorpay options object with your business details, payment amount, and user data:
 
+To Get your API key: 
+First of all clicling on you profile --> enable test mode.
+Go to : Razorpay Dashboard--> Settings --> API key --> copy your API ket paste below
+
 var options = {
     "key": "KEY_ID",
-    "amount": response.amount * 100,
+    "amount": response.amount * 100, 
     "currency": "INR",
     "name": "Suman Website Developer",
     "description": "Transaction Interface",
@@ -223,6 +227,21 @@ var options = {
 
 4. Send Order Data to Backend
 After a successful payment, send the order details to the backend for processing:
+handler(resposneb){
+    data ={
+        "first_name":first_name, 
+        "last_name":last_name,
+        "email":email,
+        "phone":phone, 
+        "address":address, 
+        "city":city,
+        "state":state, 
+        "country":country, 
+        "pincode":pincode,
+        "payment_mode":"Paid by Razorpay",
+        "payment_id":responseb.razorpay_payment_id,
+        csrfmiddlewaretoken:token,
+    }
 $.ajax({
     type: "POST",
     url: "/placeorder/",
@@ -235,6 +254,18 @@ $.ajax({
         });
     }
 });
+}
+
+
+Make sure you are receiving this payment_id and payment_mode in the backend to add it in the Order table
+add JsonResponse in the backend for this paymeny_mode:
+
+payMode = request.POST.get('payment_mode')
+        if (payMode == "Paid by Razorpay" or payMode == "Paid by Paypal" ):
+            return JsonResponse({'status':"Your order has been placed successfully"})
+
+
+
 
 🔗 Backend Integration
 1. Add URL Path
@@ -479,5 +510,12 @@ replace the price with {{ total_price }}
 
 # Check Your Transaction Details Here https://developer.paypal.com/dashboard/notifications
 
+## Integrate Sweet Alert
+
+1. use CDN:
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+2. start using in our javascript 
+swal("Good job!", "You clicked the button!", "success");
 
 Made with ❤️ by Suman. Happy coding! 🚀
