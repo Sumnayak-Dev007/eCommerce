@@ -73,7 +73,7 @@ Add a button to your HTML file to trigger the payment process:
 <button class="razrpay">Pay with Razorpay</button>
 
 2. Include Razorpay Script
-Add the Razorpay checkout script to your HTML file:
+Add the Razorpay checkout script to your HTML file "checkout.html" under {% block script %} {% endblock %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 3. Write Custom jQuery in checkout.js
@@ -436,7 +436,7 @@ Special thanks to the developers who contributed to this integration.
       <a href="{% url 'home' %}">Home</a>
   </li>
 
-  
+
 
 Integration with PayPal:
 add this script in the page before body tag
