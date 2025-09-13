@@ -430,7 +430,13 @@ Razorpay Documentation
 
 Special thanks to the developers who contributed to this integration.
 
+## How to set Navbar active :
+<ul class="navbar">
+  <li class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+      <a href="{% url 'home' %}">Home</a>
+  </li>
 
+  
 
 Integration with PayPal:
 add this script in the page before body tag
