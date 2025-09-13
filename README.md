@@ -510,7 +510,8 @@ replace the price with {{ total_price }}
 
 # Check Your Transaction Details Here https://developer.paypal.com/dashboard/notifications
 
-## Integrate Sweet Alert
+
+<h1>Integrate Sweet Alert</h1>
 
 1. use CDN:
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
