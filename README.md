@@ -449,6 +449,7 @@ Once the payment is successful, the `handler` function will be triggered. Inside
 After successfully placing the order, redirect the user to the `my-orders/` page where they can view their order receipts:
 ```javascript
 window.location.href = '/my-orders/';
+```
 
 🎉 Success!
 Congratulations! You have successfully integrated Razorpay into your website. Users can now make payments, and their order details will be processed and stored in your backend.
@@ -469,7 +470,8 @@ Special thanks to the developers who contributed to this integration.
 
 
 
-Integration with PayPal:
+## Integration with PayPal:
+JavaScripts SDK method : https://developer.paypal.com/sdk/js/reference/#buttons
 add this script in the page before body tag
 <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 
@@ -513,15 +515,15 @@ replace the price with {{ total_price }}
 
 # Integrate Sweet Alert
 
-1. Use CDN:
-```
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+# Use CDN:
 
+```html
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+```
 2. Start using it in your JavaScript:
 
 swal("Good job!", "You clicked the button!", "success");
 
-```
 
 
 Made with ❤️ by Suman. Happy coding! 🚀
